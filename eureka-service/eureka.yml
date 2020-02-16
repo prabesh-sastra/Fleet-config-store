@@ -15,4 +15,4 @@ eureka:
   dashboard:
     enabled: true
   datacenter: seatle1
-  environment: testEnvironment
+  environment: develop
