@@ -1,0 +1,18 @@
+#This configuration file will hold common configs to be shared among all files
+eureka:
+  #  instance:
+  #    prefer-ip-address: false #when the application registers with eureka, it uses its hostname rather than its ip address
+  #    hostname: localhost
+  server:
+    response-cache-update-interval-ms: 5000
+  client:
+    registerWithEureka: false #tells the built-in eureka client to not register itself with eureka, because we should act as a server. It is used false for stand alone instance. it means we dont need to register with own server which stores the information, hence false.
+    fetchRegistry: false #dont need a local copy. It means when we start up, dont make a local copy
+    eureka-server-read-timeout-seconds: 60
+    eureka-server-connect-timeout-seconds: 60
+    serviceUrl:
+      defaultZone: http://localhost:8763/eureka/
+  dashboard:
+    enabled: true
+  datacenter: seatle1
+  environment: testEnvironment

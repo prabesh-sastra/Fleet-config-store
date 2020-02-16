@@ -1,0 +1,31 @@
+server:
+  port: 8763
+
+logging:
+  file:
+    name: logs/sastra/fleet/eureka/eureka.log
+
+zuul:
+  ignored-patterns: /api/v1/trackerproxy/test1  # this makes this url to be ignored. It means this url will not work. If we need to make some url not to work we can do this like same
+  prefix: /api/v1
+  ignoredServices: '*'      # ignore all services. It means if we dont add services to zuul then they are not discovered by zuul proxy. If we do not use ignoredServices and use @EurekaClient to client services then we dont need to do zuul proutes.
+  routes:
+    tracker:
+      path: /trackerproxy/**  #This is the name discovery starts with
+      serviceId: tracker    # This need to be same as spring application name of client service4
+    #      url: http://localhost:8082/
+    gateway:
+      path: /gatewayproxy/**  #This is the name discovery starts with
+      serviceId: gateway    # This need to be same as spring application name of client service
+    demo:
+      path: /demoproxy/**  #This is the name discovery starts with
+      serviceId: demo    # This need to be same as spring application name of client service
+
+tracker:
+  ribbon:
+    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+    listOfServers: http://localhost:8082/
+    ConnectTimeout: 1000
+    ReadTimeout: 3000
+    MaxTotalHttpConnections: 500
+    MaxConnectionsPerHost: 100
